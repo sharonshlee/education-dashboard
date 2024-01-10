@@ -1,0 +1,10 @@
+{% for teacher in teachers %}
+<tr>
+	<td>{{ teacher.teacher_id }}</td>
+	<td>{{ teacher.name }}</td>
+	<td>{{ teacher.last_active }}</td>
+	<td>{{ teacher.activity_score }}</td>
+	<td>{{ teacher.student_interaction_rating }}</td>
+	<td>{{ (", ").join(teacher.subjects_taught) }}</td>
+</tr>
+{% endfor %}

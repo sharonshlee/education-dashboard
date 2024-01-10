@@ -1,0 +1,8 @@
+{% for resource in resources %}
+<tr>
+	<td>{{ resource.resource_id }}</td>
+	<td>{{ resource.resource_name }}</td>
+	<td>{{ (', ').join(resource.allocated_teachers) }}</td>
+	<td>{{ resource.utilization_rate }}</td>
+</tr>
+{% endfor %}

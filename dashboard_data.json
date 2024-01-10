@@ -1,0 +1,136 @@
+{
+	"teacher_activities": [
+		{
+			"teacher_id": 123,
+			"name": "John Doe",
+			"last_active": "2023-11-10",
+			"activity_score": 82,
+			"student_interaction_rating": 4.5,
+			"subjects_taught": ["Mathematics", "Physics"]
+		},
+		{
+			"teacher_id": 456,
+			"name": "Jane Smith",
+			"last_active": "2023-11-09",
+			"activity_score": 76,
+			"student_interaction_rating": 4.7,
+			"subjects_taught": ["Biology", "Chemistry"]
+		},
+		{
+			"teacher_id": 789,
+			"name": "Alice Johnson",
+			"last_active": "2023-11-11",
+			"activity_score": 89,
+			"student_interaction_rating": 4.8,
+			"subjects_taught": ["History", "English"]
+		},
+		{
+			"teacher_id": 101,
+			"name": "Mark Brown",
+			"last_active": "2023-11-08",
+			"activity_score": 79,
+			"student_interaction_rating": 4.4,
+			"subjects_taught": ["Art", "Social Studies"]
+		}
+	],
+
+	"student_progress": [
+		{
+			"class_id": 10,
+			"subject": "Mathematics",
+			"average_score_improvement": 12,
+			"homework_completion_rate": 95,
+			"attendance_rate": 98
+		},
+		{
+			"class_id": 15,
+			"subject": "Science",
+			"average_score_improvement": 9,
+			"homework_completion_rate": 90,
+			"attendance_rate": 92
+		},
+		{
+			"class_id": 20,
+			"subject": "English",
+			"average_score_improvement": 15,
+			"homework_completion_rate": 97,
+			"attendance_rate": 96
+		},
+		{
+			"class_id": 25,
+			"subject": "History",
+			"average_score_improvement": 7,
+			"homework_completion_rate": 88,
+			"attendance_rate": 90
+		}
+	],
+
+	"resource_management": [
+		{
+			"resource_id": 2001,
+			"resource_name": "Interactive Geometry Software",
+			"allocated_teachers": [123],
+			"utilization_rate": 87
+		},
+		{
+			"resource_id": 2002,
+			"resource_name": "Online Chemistry Lab",
+			"allocated_teachers": [456, 789],
+			"utilization_rate": 75
+		},
+		{
+			"resource_id": 2003,
+			"resource_name": "Historical Documentaries Archive",
+			"allocated_teachers": [789, 101],
+			"utilization_rate": 65
+		},
+		{
+			"resource_id": 2004,
+			"resource_name": "Grammar and Composition Platform",
+			"allocated_teachers": [101],
+			"utilization_rate": 82
+		}
+	],
+
+	"coach_details": [
+		{
+			"coach_id": 321,
+			"name": "Emily Turner",
+			"specialization": "Student Engagement",
+			"years_of_experience": 5
+		},
+		{
+			"coach_id": 654,
+			"name": "Michael Rodriguez",
+			"specialization": "Curriculum Development",
+			"years_of_experience": 8
+		}
+	],
+
+	"coach_teacher_interactions": [
+		{
+			"coach_id": 321,
+			"teacher_id": 123,
+			"last_meeting_date": "2023-11-08",
+			"meeting_notes": "Discussed student engagement strategies."
+		},
+		{
+			"coach_id": 321,
+			"teacher_id": 456,
+			"last_meeting_date": "2023-11-07",
+			"meeting_notes": "Reviewed upcoming curriculum changes."
+		},
+		{
+			"coach_id": 654,
+			"teacher_id": 789,
+			"last_meeting_date": "2023-11-10",
+			"meeting_notes": "Planned history project outline."
+		},
+		{
+			"coach_id": 654,
+			"teacher_id": 101,
+			"last_meeting_date": "2023-11-09",
+			"meeting_notes": "Analyzed challenges in student's art engagement."
+		}
+	]
+}

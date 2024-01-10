@@ -1,0 +1,9 @@
+{% for student in students %}
+<tr>
+	<td>{{ student.class_id }}</td>
+	<td>{{ student.subject }}</td>
+	<td>{{ student.average_score_improvement }}</td>
+	<td>{{ student.homework_completion_rate }}</td>
+	<td>{{ student.attendance_rate }}</td>
+</tr>
+{% endfor %}

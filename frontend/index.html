@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Education Dashboard</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script
+			defer
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			src="https://unpkg.com/htmx.org@1.9.10"
+			integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+			crossorigin="anonymous"
+			defer
+		></script>
+		<script
+			src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"
+			defer
+		></script>
+
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+			integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0-rc.1/chartjs-plugin-datalabels.min.js"
+			integrity="sha512-+UYTD5L/bU1sgAfWA0ELK5RlQ811q8wZIocqI7+K0Lhh8yVdIoAMEs96wJAIbgFvzynPm36ZCXtkydxu1cs27w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+
+		<script src="js/charts.js" defer></script>
+	</head>
+	<body>
+		<form hx-ext="json-enc" onsubmit="return false;">
+			<div class="container">
+				<!--navigation-->
+				<div class="navigation" x-data="{ activeLink: null }">
+					<ul>
+						<li>
+							<a href="#">
+								<span class="icon">
+									<img src="" alt="logo" />
+								</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="#"
+								x-on:click="activeLink = 1"
+								x-bind:class="{ 'active': activeLink === 1 }"
+							>
+								<span class="icon"
+									><ion-icon name="home-outline"></ion-icon>
+								</span>
+								<span class="title">Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="#teacherActivies"
+								x-on:click="activeLink = 2"
+								x-bind:class="{ 'active': activeLink === 2 }"
+							>
+								<span class="icon"
+									><ion-icon name="people-outline"></ion-icon
+								></span>
+								<span class="title">Teacher</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="#studentSummary"
+								x-on:click="activeLink = 3"
+								x-bind:class="{ 'active': activeLink === 3 }"
+							>
+								<span class="icon"
+									><ion-icon name="school-outline"></ion-icon
+								></span>
+								<span class="title">Student</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="#resource"
+								x-on:click="activeLink = 4"
+								x-bind:class="{ 'active': activeLink === 4}"
+							>
+								<span class="icon"
+									><ion-icon
+										name="briefcase-outline"
+									></ion-icon
+								></span>
+								<span class="title">Resource</span>
+							</a>
+						</li>
+						<li>
+							<a
+								href="#coachTeacher"
+								x-on:click="activeLink = 5"
+								x-bind:class="{ 'active': activeLink === 5 }"
+							>
+								<span class="icon"
+									><ion-icon name="bulb-outline"></ion-icon
+								></span>
+								<span class="title">Coach</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--main-->
+				<div class="main">
+					<!--summary of totals cards-->
+					<div
+						class="cardBox"
+						x-data="{ total_classes: 0, total_resources: 0, total_teachers: 0, total_coaches: 0 }"
+						x-init="fetch('/api/summary')
+							.then(response => response.json())
+							.then(value => { total_classes = value.students.total_classes; 
+											 total_resources = value.resources.total_resources; 
+											 total_teachers = value.teachers.total_teachers; 
+											 total_coaches = value.coaches.total_coaches;})"
+					>
+						<div class="card">
+							<div>
+								<div
+									class="numbers"
+									x-text="total_teachers"
+								></div>
+
+								<div class="cardName">Total Teachers</div>
+							</div>
+							<div class="iconBx">
+								<ion-icon name="people-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="card">
+							<div>
+								<div
+									class="numbers"
+									x-text="total_classes"
+								></div>
+
+								<div class="cardName">Total Classes</div>
+							</div>
+							<div class="iconBx">
+								<ion-icon name="school-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="card">
+							<div>
+								<div
+									class="numbers"
+									x-text="total_resources"
+								></div>
+
+								<div class="cardName">Total Resources</div>
+							</div>
+							<div class="iconBx">
+								<ion-icon name="briefcase-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="card">
+							<div>
+								<div
+									class="numbers"
+									x-text="total_coaches"
+								></div>
+
+								<div class="cardName">Total Coaches</div>
+							</div>
+							<div class="iconBx">
+								<ion-icon name="bulb-outline"></ion-icon>
+							</div>
+						</div>
+					</div>
+
+					<!--teacher activities-->
+					<div class="graphBox">
+						<div class="teacherGraphBox" id="teacherActivies">
+							<!-- teacher activities charts-->
+							<div class="box">
+								<div
+									class="boxHeader"
+									x-data="{ selectedOption: '' }"
+								>
+									<h2>Teacher Activities</h2>
+									<select
+										x-model="selectedOption"
+										x-on:change="showTeacherActivityChart(selectedOption)"
+									>
+										<option
+											value="teacherActivityScoreChart"
+										>
+											Teacher Activity Scores
+										</option>
+										<option
+											value="studentInterationRatingChart"
+										>
+											Student Interation Ratings
+										</option>
+									</select>
+								</div>
+								<canvas id="teacherActivityChart"></canvas>
+							</div>
+
+							<!-- teacher activities summary charts -->
+							<div class="summary">
+								<div class="box">
+									<canvas
+										id="averageTeacherActivityScoresChart"
+									></canvas>
+								</div>
+
+								<div class="box">
+									<canvas
+										id="averageStudentRatingsChart"
+									></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--teacher details list-->
+					<div
+						class="graphBox details"
+						id="details"
+						x-data="{ data: [], 
+								  search_term: '', 
+								  active_date_from: new Date().toISOString().split('T')[0], 
+								  active_date_to: new Date().toISOString().split('T')[0] }"
+					>
+						<!--teacher details list-->
+						<div class="detailsList">
+							<div class="cardHeader">
+								<h2>Teacher Activities</h2>
+							</div>
+							<div class="search">
+								<p>
+									<input
+										id="searchBar"
+										type="text"
+										placeholder="Search id, name, etc. . ."
+										name="search_term_teacher"
+									/>
+									<button
+										type="submit"
+										hx-trigger="click"
+										hx-post="api/search-teachers"
+										hx-params="search_term_teacher"
+										hx-target="#teacher-results"
+									>
+										Search
+									</button>
+								</p>
+								<p>
+									from:
+									<input
+										type="date"
+										name="active_date_from"
+										x-model="active_date_from"
+									/>
+									to:
+									<input
+										type="date"
+										name="active_date_to"
+										x-model="active_date_to"
+									/>
+									<button
+										type="submit"
+										hx-trigger="click"
+										hx-post="api/search-teachers"
+										hx-params="active_date_from,active_date_to"
+										hx-target="#teacher-results"
+									>
+										Search
+									</button>
+								</p>
+							</div>
+							<table>
+								<thead>
+									<tr>
+										<td>Teacher Id</td>
+										<td>Teacher Name</td>
+										<td>Last Active</td>
+										<td>Activity Score</td>
+										<td>Student Rating</td>
+										<td>Subjects Taught</td>
+									</tr>
+								</thead>
+								<tbody
+									id="teacher-results"
+									hx-trigger="load"
+									hx-post="api/search-teachers"
+									hx-params="none"
+								></tbody>
+							</table>
+						</div>
+
+						<!-- subject taughts chart -->
+						<div class="box">
+							<canvas id="subjectsTaughtChart"></canvas>
+						</div>
+					</div>
+
+					<!-- student progress summary charts -->
+					<div class="graphBox">
+						<div class="summary" id="studentSummary">
+							<div class="box">
+								<canvas
+									id="averageStudentAvgScoresImprovementChart"
+								></canvas>
+							</div>
+							<div class="box">
+								<canvas
+									id="averageHomeworkCompletionRatesChart"
+								></canvas>
+							</div>
+							<div class="box">
+								<canvas
+									id="averageAttendanceRatesChart"
+								></canvas>
+							</div>
+						</div>
+					</div>
+
+					<!-- student progress -->
+					<div class="graphBox">
+						<div class="details">
+							<!--student progress charts-->
+							<div class="box">
+								<div
+									class="boxHeader"
+									x-data="{ selectedOption: '' }"
+								>
+									<h2>Student Progress</h2>
+									<select
+										x-model="selectedOption"
+										x-on:change="showStudentProgressChart(selectedOption)"
+									>
+										<option
+											value="allClassAverageScoreImprovementChart"
+										>
+											Average Scores Improvement
+										</option>
+										<option
+											value="allClassHomeworkCompletionRateChart"
+										>
+											Homework Completion Rates
+										</option>
+										<option
+											value="allClassAttendanceRateChart"
+										>
+											Attendance Rates
+										</option>
+									</select>
+								</div>
+								<canvas id="studentProgressChart"></canvas>
+							</div>
+
+							<!--student progress details list-->
+							<div class="detailsList">
+								<div class="cardHeader">
+									<h2>Student Progress</h2>
+								</div>
+								<div class="search">
+									<p>
+										<input
+											id="searchBar"
+											type="text"
+											placeholder="Search id, subject, etc. . ."
+											name="search_term_student"
+										/>
+										<button
+											type="submit"
+											hx-trigger="click"
+											hx-post="api/search-students-progress"
+											hx-params="search_term_student"
+											hx-target="#student-results"
+										>
+											Search
+										</button>
+									</p>
+								</div>
+								<table>
+									<thead>
+										<tr>
+											<td>Class Id</td>
+											<td>Subject</td>
+											<td>Average Score Improvement</td>
+											<td>Homework Completion Rate</td>
+											<td>Attendance Rate</td>
+										</tr>
+									</thead>
+									<tbody
+										id="student-results"
+										hx-trigger="load"
+										hx-post="api/search-students-progress"
+										hx-params="none"
+									></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- resource management -->
+					<div class="graphBox">
+						<div class="details">
+							<!--resource management details list-->
+							<div class="detailsList">
+								<div class="cardHeader">
+									<h2>Resource</h2>
+								</div>
+								<div class="search">
+									<p>
+										<input
+											id="searchBar"
+											type="text"
+											placeholder="Search id, name, etc. . ."
+											name="search_term_resource"
+										/>
+										<button
+											type="button"
+											hx-trigger="click"
+											hx-post="api/search-resources"
+											hx-params="search_term_resource"
+											hx-target="#resource-results"
+										>
+											Search
+										</button>
+									</p>
+								</div>
+								<table>
+									<thead>
+										<tr>
+											<td>Resource Id</td>
+											<td>Resource Name</td>
+											<td>Allocated Teachers</td>
+											<td>Utilization Rate</td>
+										</tr>
+									</thead>
+									<tbody
+										id="resource-results"
+										hx-trigger="load"
+										hx-post="api/search-resources"
+										hx-params="none"
+									></tbody>
+								</table>
+							</div>
+
+							<!-- resource management chart-->
+							<div class="box" id="resource">
+								<canvas id="resourceManagementChart"></canvas>
+								<div
+									class="boxHeader"
+									x-data="{ selectedOption: '' }"
+								>
+									<select
+										x-model="selectedOption"
+										x-on:change="showResourceMangementChart(selectedOption)"
+									>
+										<option
+											value="resourceUtilizationRatesChart"
+										>
+											Resource Utilization Rates
+										</option>
+										<option
+											value="resourceAllocatedTeacherNumbersChart"
+										>
+											Resource Allocated Teacher Numbers
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--coach teacher interactions-->
+					<div
+						class="graphBox details"
+						x-data="{ data: [], 
+							search_term_coach_teacher: '', 
+							meeting_date_from: new Date().toISOString().split('T')[0], 
+							meeting_date_to: new Date().toISOString().split('T')[0] }"
+					>
+						<!--coach teacher interactions list-->
+						<div class="detailsList" id="coachTeacher">
+							<div class="cardHeader">
+								<h2>Coach Teacher Interactions</h2>
+							</div>
+							<div class="search">
+								<p>
+									<input
+										id="searchBar"
+										type="text"
+										placeholder="Search name, notes, etc. . ."
+										name="search_term_coach_teacher"
+									/>
+									<button
+										type="submit"
+										hx-trigger="click"
+										hx-post="api/search-coaches-teachers"
+										hx-params="search_term_coach_teacher"
+										hx-target="#coach-teacher-results"
+									>
+										Search
+									</button>
+								</p>
+								<p>
+									from:
+									<input
+										type="date"
+										name="meeting_date_from"
+										x-model="meeting_date_from"
+									/>
+									to:
+									<input
+										type="date"
+										name="meeting_date_to"
+										x-model="meeting_date_to"
+									/>
+									<button
+										type="submit"
+										hx-trigger="click"
+										hx-post="api/search-coaches-teachers"
+										hx-params="meeting_date_from,meeting_date_to"
+										hx-target="#coach-teacher-results"
+									>
+										Search
+									</button>
+								</p>
+							</div>
+							<table>
+								<thead>
+									<tr>
+										<td id="coachName">Coach Name</td>
+										<td>Teacher Name</td>
+										<td>Last Meeting Date</td>
+										<td id="meetingNotes">Meeting Notes</td>
+									</tr>
+								</thead>
+								<tbody
+									id="coach-teacher-results"
+									hx-trigger="load"
+									hx-post="api/search-coaches-teachers"
+									hx-params="none"
+									hx-target="#coach-teacher-results"
+								></tbody>
+							</table>
+						</div>
+
+						<!--coach teacher interactions chart-->
+						<div class="box">
+							<canvas id="coachTeacherChart"></canvas>
+						</div>
+					</div>
+
+					<!--coach details-->
+					<div class="graphBox details" id="coach">
+						<!--coach details list-->
+						<div class="detailsList">
+							<div class="cardHeader">
+								<h2>Coach</h2>
+							</div>
+							<div class="search">
+								<p>
+									<input
+										id="searchBar"
+										type="text"
+										placeholder="Search id, name, etc. . ."
+										name="search_term_coach"
+									/>
+									<button
+										type="submit"
+										hx-trigger="click"
+										hx-post="api/search-coaches"
+										hx-params="search_term_coach"
+										hx-target="#coach-results"
+									>
+										Search
+									</button>
+								</p>
+							</div>
+							<table>
+								<thead>
+									<tr>
+										<td>Coach Id</td>
+										<td>Coach Name</td>
+										<td>Specialization</td>
+										<td>Years of Experience</td>
+									</tr>
+								</thead>
+								<tbody
+									id="coach-results"
+									hx-trigger="load"
+									hx-post="api/search-coaches"
+									hx-params="none"
+								></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,8 @@
+{% for coach_teacher in coaches_teachers %}
+<tr>
+	<td>{{ coach_teacher.coach_name }}</td>
+	<td>{{ coach_teacher.teacher_name }}</td>
+	<td>{{ coach_teacher.last_meeting_date }}</td>
+	<td>{{ coach_teacher.meeting_notes }}</td>
+</tr>
+{% endfor %}
